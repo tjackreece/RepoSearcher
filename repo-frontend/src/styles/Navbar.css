@@ -19,3 +19,18 @@
   height: 80px;
   max-width: 1500px;
 }
+/* SearchBar */
+.input {
+  border: 1px solid white;
+}
+.search-box {
+  display: flex;
+  width: 100%;
+}
+.searchIcon {
+  background-color: transparent;
+  border: 1px solid white;
+  border-left: 0px solid transparent;
+  padding: 5px;
+  width: 100%;
+}
