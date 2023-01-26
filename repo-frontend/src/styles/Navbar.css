@@ -1,0 +1,36 @@
+.navbar {
+  align-items: center;
+  background: transparent;
+  display: flex;
+  font-size: 1.2rem;
+  height: 80px;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+.navbar.active {
+  background: linear-gradient(90deg, rgb(66, 2, 194) 0%, rgb(0, 78, 194) 100%);
+}
+.navbar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  max-width: 1500px;
+}
+/* SearchBar */
+.input {
+  border: 1px solid white;
+}
+.search-box {
+  display: flex;
+  width: 100%;
+}
+.searchIcon {
+  background-color: transparent;
+  border: 1px solid white;
+  border-left: 0px solid transparent;
+  padding: 5px;
+  width: 100%;
+}
