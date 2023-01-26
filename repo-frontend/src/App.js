@@ -13,6 +13,7 @@ function App() {
       setRepos(datastore.repos);
     }
   }, [datastore.datastoreLoading, datastore.repos]);
+
   const handleSearch = (searchInput) => {
     console.log("ITS WORKING>>>", searchInput);
     const repoInfo = getRepository(searchInput);
