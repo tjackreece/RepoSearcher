@@ -23,7 +23,7 @@ export default function DatastoreProvider({ children }) {
   );
 
   useEffect(() => {
-    let offline = true;
+    let offline = false;
     if (offline) {
       datastoreActions.setRepo(data);
       datastoreActions.setIsLoading(false);
@@ -35,6 +35,7 @@ export default function DatastoreProvider({ children }) {
       });
     }
   }, [datastoreActions]);
+
   const reducerValue = useMemo(
     () => ({
       datastore,

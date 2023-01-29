@@ -1,5 +1,8 @@
 import { getLanguages } from "../controller/controller";
-
+import { TableCell, TableRow } from "@mui/material";
+import { Typography } from "@mui/material";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import ForkRightIcon from "@mui/icons-material/ForkRight";
 export const DataGenerator = (repoOBJ, colorArray) => {
   const repoFormattedData = [];
 
@@ -46,6 +49,8 @@ export const DataGenerator = (repoOBJ, colorArray) => {
     if (created_at) {
       dateCreated = created_at;
     }
+    // const formattedCommitData = [];
+
     const repoInfo = {
       repoName,
       repoLanguage,
@@ -53,11 +58,120 @@ export const DataGenerator = (repoOBJ, colorArray) => {
       starCount,
       forkCount,
       dateCreated,
+      full_name,
       langColor:
         colorArray.find((col) => col.name === language)?.color || "#000000",
+      // commitData: formattedCommitData,
     };
     repoFormattedData.push(repoInfo);
   });
 
-  return repoFormattedData;
+  return repoFormattedData.sort(function (a, b) {
+    return b.starCount - a.starCount;
+  });
 };
+export const headerGenerator = (headers) => {
+  return (
+    <TableRow>
+      {headers.map((head, i) => {
+        return (
+          <TableCell
+            key={head}
+            sx={
+              i === 0
+                ? {
+                    fontWeight: "bold",
+                  }
+                : {
+                    fontWeight: "bold",
+                    align: "center",
+                  }
+            }
+          >
+            {head}
+          </TableCell>
+        );
+      })}
+    </TableRow>
+  );
+};
+export const rowGenerator = (data) => {
+  return data.map((el, i) => {
+    return (
+      <TableRow key={el.Title}>
+        {Object.keys(el).map((commit, i) => (
+          <TableCell
+            key={el[commit]}
+            align={i === 0 ? "left" : "center"}
+            scope="row"
+          >
+            {commit === "DateCreated"
+              ? new Date(el[commit]).toLocaleString()
+              : el[commit]}
+          </TableCell>
+        ))}
+      </TableRow>
+    );
+  });
+};
+export const FrontDetails = (repoDetails) => [
+  {
+    icon: (
+      <span
+        className="dot"
+        style={{
+          height: "15px",
+          width: "15px",
+          backgroundColor: repoDetails.langColor,
+          borderRadius: "50%",
+          margin: "auto .5rem auto auto",
+        }}
+      />
+    ),
+    detail: <Typography size="small"> {repoDetails.repoLanguage}</Typography>,
+  },
+  {
+    icon: (
+      <StarBorderIcon
+        className="star"
+        style={{
+          stroke: "yellow",
+          color: "yellow",
+          margin: "auto .2rem auto auto",
+        }}
+      />
+    ),
+    detail: <Typography size="small"> {repoDetails.starCount}</Typography>,
+  },
+  {
+    icon: (
+      <ForkRightIcon
+        className="star"
+        style={{
+          margin: "auto .2rem auto auto",
+        }}
+      />
+    ),
+    detail: <Typography size="small"> {repoDetails.forkCount}</Typography>,
+  },
+  {
+    icon: (
+      <span
+        // className="label"
+        style={{
+          // backgroundColor: langColor,
+          fontWeight: "bold",
+          margin: "auto .5rem auto auto",
+        }}
+      >
+        DateCreated:
+      </span>
+    ),
+    detail: (
+      <Typography size="small">
+        {" "}
+        {new Date(repoDetails.dateCreated).toLocaleString()}
+      </Typography>
+    ),
+  },
+];

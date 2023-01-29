@@ -1,0 +1,43 @@
+$block-class: "navbar";
+
+@at-root {
+  .#{$block-class} {
+    align-items: center;
+    background: transparent;
+    display: flex;
+    font-size: 1.2rem;
+    height: 65px;
+    justify-content: center;
+    position: relative;
+    z-index: 15;
+
+    &__active {
+      align-items: center;
+      background: linear-gradient(
+        90deg,
+        rgb(66, 2, 194) 0%,
+        rgb(0, 78, 194) 100%
+      );
+      display: flex;
+      font-size: 1.2rem;
+      height: 65px;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    & &__search-container {
+      display: flex;
+      border: 1px solid black;
+      width: 30%;
+      &__input {
+        width: 95%;
+      }
+      &__searchIcon {
+        width: 5%;
+        border-left: 0px solid transparent;
+        padding: 5px;
+      }
+    }
+  }
+}
