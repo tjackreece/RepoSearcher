@@ -11,10 +11,7 @@ import { headerGenerator, rowGenerator } from "../../utility/DataGenerator";
 const CommitTable = ({ data, headers }) => {
   return (
     <TableContainer component={Paper}>
-      <Table
-        sx={{ minWidth: 650, fontFamily: "Lato" }}
-        aria-label="simple table"
-      >
+      <Table aria-label="simple table" className="commit-table">
         <TableHead>{headerGenerator(headers)}</TableHead>
         <TableBody>{rowGenerator(data)}</TableBody>
       </Table>

@@ -1,45 +1,31 @@
 import React from "react";
 import { Card, CardContent, Box, Typography } from "@mui/material";
 import { FrontDetails } from "../../../utility/DataGenerator";
-const Front = ({ name, repoDetails, flipped, handleflip }) => {
+const Front = ({ name, repoDetails, handleflip }) => {
   return (
-    <Card
-      className={"card-container" + (flipped ? " flipped" : "")}
-      key={name}
-      sx={{
-        width: "75%",
-        height: "200px",
-        padding: "5px",
-        margin: ".1rem",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-      }}
-      onClick={handleflip}
-    >
+    <Card className={"card-container"} key={name} onClick={handleflip}>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          className="card-container__title"
+        >
           {repoDetails.repoName}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" className="card-container__des">
           {repoDetails.repoDescription}
         </Typography>
       </CardContent>
-      <CardContent
-        style={{
-          display: "flex",
-          width: "100%",
-          gap: "1.5rem",
-          justifyContent: "center",
-          margin: ".5rem auto",
-        }}
-      >
-        {FrontDetails(repoDetails).map((detail) => (
-          <Box style={{ display: "flex" }}>
-            {detail.icon}
-            {detail.detail}
-          </Box>
-        ))}
+      <CardContent className="card-container__content">
+        {FrontDetails(repoDetails).map((detail, i) => {
+          return (
+            <Box key={detail.key + i} className="card-container__content--box">
+              {detail.icon}
+              {detail.detail}
+            </Box>
+          );
+        })}
       </CardContent>
     </Card>
   );

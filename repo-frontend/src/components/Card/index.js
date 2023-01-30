@@ -3,21 +3,11 @@ import { getCommits } from "../../controller/controller";
 import Back from "./CardGenerator/Back";
 import Front from "./CardGenerator/Front";
 
-export default function CardMaker({
-  repoDetails,
-  // name,
-  // language,
-  // description,
-  // starCount,
-  // forkCount,
-  // dateCreated,
-  // langColor,
-  // full_name,
-}) {
+export default function CardMaker({ repoDetails, isLoading }) {
   const [flipped, setFlipped] = useState(false);
   const [commitData, setCommitData] = useState([]);
 
-  const handleflip = async (e, name) => {
+  const handleflip = async () => {
     const formattedCommitData = [];
     const commitInfo = await getCommits(repoDetails.full_name);
     if (commitInfo.length > 0) {
@@ -42,20 +32,19 @@ export default function CardMaker({
       setFlipped(true);
     }
   }, [commitData]);
+
   return (
     <>
       {flipped ? (
         <Back
           name={repoDetails.repoName}
           commitData={commitData}
-          flipped={flipped}
           handleflip={handleflipBack}
         />
       ) : (
         <Front
           name={repoDetails.repoName}
           repoDetails={repoDetails}
-          flipped={flipped}
           handleflip={handleflip}
         />
       )}

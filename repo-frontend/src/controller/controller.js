@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const baseURL = "https://api.github.com/repos/";
 export const getRepository = async (OrganizationName) => {
   const url = `https://api.github.com/orgs/${OrganizationName}/repos`;
@@ -12,6 +13,7 @@ export const getRepository = async (OrganizationName) => {
     }
   } catch (error) {
     console.log(error);
+    return [];
   }
 };
 
@@ -36,15 +38,3 @@ export const getCommits = async (full_name) => {
     console.log(error);
   }
 };
-
-// Repo name
-// Language
-// Description
-// Star Count
-// Fork Count
-// Date Created
-// Commit Title
-
-// Committer username
-// Commit hash
-// Date Created

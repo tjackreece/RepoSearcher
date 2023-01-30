@@ -1,0 +1,12 @@
+$block-class: "repository";
+
+@at-root {
+  .#{$block-class} {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: #fff;
+    width: 100%;
+  }
+}

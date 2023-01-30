@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import Skeleton from "@mui/material/Skeleton";
 
-const Navbar = ({ search }) => {
+const Navbar = ({ search, isLoading }) => {
   const [navClass, setNavClass] = useState("navbar");
   const [searchInput, setSearchInput] = useState("");
 
@@ -13,6 +14,16 @@ const Navbar = ({ search }) => {
     }
   };
   window.addEventListener("scroll", changeBackground);
+  if (isLoading) {
+    return (
+      <Skeleton
+        variant="rounded"
+        width={"100vw"}
+        height={"80px"}
+        animation="wave"
+      />
+    );
+  }
   return (
     <nav className={navClass}>
       <div className="navbar__search-container" style={{ fontSize: "24px" }}>

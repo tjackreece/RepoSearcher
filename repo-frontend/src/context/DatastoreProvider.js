@@ -18,6 +18,11 @@ export default function DatastoreProvider({ children }) {
           type: "SET_ISLOADING",
           payload: { isLoading },
         }),
+      sortRepositories: (repositories, direction) =>
+        dispatch({
+          type: "SORT_REPOSITORY",
+          payload: { repositories, direction },
+        }),
     }),
     [dispatch]
   );

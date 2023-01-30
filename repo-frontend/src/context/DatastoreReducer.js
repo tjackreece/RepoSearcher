@@ -25,7 +25,12 @@ export const DatastoreReducer = (state, action) => {
   switch (action.type) {
     case "SET_REPOSITORY": {
       const { repositiory } = action.payload;
-      return { ...state, repos: DataGenerator(repositiory, colorArray) };
+
+      return {
+        ...state,
+        repos:
+          repositiory.length > 0 ? DataGenerator(repositiory, colorArray) : [],
+      };
     }
     case "SET_ISLOADING": {
       const { isLoading } = action.payload;

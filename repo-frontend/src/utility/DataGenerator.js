@@ -1,7 +1,7 @@
 import { getLanguages } from "../controller/controller";
 import { TableCell, TableRow } from "@mui/material";
 import { Typography } from "@mui/material";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
+import StarIcon from "@mui/icons-material/Star";
 import ForkRightIcon from "@mui/icons-material/ForkRight";
 export const DataGenerator = (repoOBJ, colorArray) => {
   const repoFormattedData = [];
@@ -66,8 +66,14 @@ export const DataGenerator = (repoOBJ, colorArray) => {
     repoFormattedData.push(repoInfo);
   });
 
-  return repoFormattedData.sort(function (a, b) {
-    return b.starCount - a.starCount;
+  return repoFormattedData;
+};
+export const sortedRepos = (repos, direction) => {
+  return repos.sort(function (a, b) {
+    if (direction) {
+      return b.starCount - a.starCount;
+    }
+    return a.starCount - b.starCount;
   });
 };
 export const headerGenerator = (headers) => {
@@ -76,7 +82,7 @@ export const headerGenerator = (headers) => {
       {headers.map((head, i) => {
         return (
           <TableCell
-            key={head}
+            key={head + i}
             sx={
               i === 0
                 ? {
@@ -84,7 +90,7 @@ export const headerGenerator = (headers) => {
                   }
                 : {
                     fontWeight: "bold",
-                    align: "center",
+                    textAlign: "center",
                   }
             }
           >
@@ -98,7 +104,7 @@ export const headerGenerator = (headers) => {
 export const rowGenerator = (data) => {
   return data.map((el, i) => {
     return (
-      <TableRow key={el.Title}>
+      <TableRow key={el.Title + i}>
         {Object.keys(el).map((commit, i) => (
           <TableCell
             key={el[commit]}
@@ -114,64 +120,70 @@ export const rowGenerator = (data) => {
     );
   });
 };
-export const FrontDetails = (repoDetails) => [
-  {
-    icon: (
-      <span
-        className="dot"
-        style={{
-          height: "15px",
-          width: "15px",
-          backgroundColor: repoDetails.langColor,
-          borderRadius: "50%",
-          margin: "auto .5rem auto auto",
-        }}
-      />
-    ),
-    detail: <Typography size="small"> {repoDetails.repoLanguage}</Typography>,
-  },
-  {
-    icon: (
-      <StarBorderIcon
-        className="star"
-        style={{
-          stroke: "yellow",
-          color: "yellow",
-          margin: "auto .2rem auto auto",
-        }}
-      />
-    ),
-    detail: <Typography size="small"> {repoDetails.starCount}</Typography>,
-  },
-  {
-    icon: (
-      <ForkRightIcon
-        className="star"
-        style={{
-          margin: "auto .2rem auto auto",
-        }}
-      />
-    ),
-    detail: <Typography size="small"> {repoDetails.forkCount}</Typography>,
-  },
-  {
-    icon: (
-      <span
-        // className="label"
-        style={{
-          // backgroundColor: langColor,
-          fontWeight: "bold",
-          margin: "auto .5rem auto auto",
-        }}
-      >
-        DateCreated:
-      </span>
-    ),
-    detail: (
-      <Typography size="small">
-        {" "}
-        {new Date(repoDetails.dateCreated).toLocaleString()}
-      </Typography>
-    ),
-  },
-];
+export const FrontDetails = (repoDetails) => {
+  return [
+    {
+      icon: (
+        <span
+          className="dot"
+          style={{
+            height: "15px",
+            width: "15px",
+            backgroundColor: repoDetails.langColor,
+            borderRadius: "50%",
+            margin: "auto .5rem auto auto",
+          }}
+        />
+      ),
+      detail: <Typography size="small"> {repoDetails.repoLanguage}</Typography>,
+      key: repoDetails.full_name,
+    },
+    {
+      icon: (
+        <StarIcon
+          className="star"
+          style={{
+            stroke: "#ffe135",
+            color: "#ffe135",
+            margin: "auto .2rem auto auto",
+          }}
+        />
+      ),
+      detail: <Typography size="small"> {repoDetails.starCount}</Typography>,
+      key: repoDetails.full_name,
+    },
+    {
+      icon: (
+        <ForkRightIcon
+          className="star"
+          style={{
+            margin: "auto .2rem auto auto",
+          }}
+        />
+      ),
+      detail: <Typography size="small"> {repoDetails.forkCount}</Typography>,
+      key: repoDetails.full_name,
+    },
+    {
+      icon: (
+        <span
+          // className="label"
+          style={{
+            // backgroundColor: langColor,
+            fontWeight: "bold",
+            margin: "auto .5rem auto auto",
+          }}
+        >
+          Date Created:
+        </span>
+      ),
+      detail: (
+        <Typography size="small">
+          {" "}
+          {new Date(repoDetails.dateCreated).toLocaleString()}
+        </Typography>
+      ),
+      key: repoDetails.full_name,
+    },
+  ];
+};

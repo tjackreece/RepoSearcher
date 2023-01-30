@@ -3,21 +3,18 @@ $block-class: "navbar";
 @at-root {
   .#{$block-class} {
     align-items: center;
-    background: transparent;
+    background-color: #fff;
+
     display: flex;
     font-size: 1.2rem;
     height: 65px;
     justify-content: center;
-    position: relative;
     z-index: 15;
 
     &__active {
       align-items: center;
-      background: linear-gradient(
-        90deg,
-        rgb(66, 2, 194) 0%,
-        rgb(0, 78, 194) 100%
-      );
+      background-color: #fff;
+      box-shadow: 0 4px 25px rgb(109 120 136 / 15%) !important;
       display: flex;
       font-size: 1.2rem;
       height: 65px;
@@ -28,16 +25,33 @@ $block-class: "navbar";
     }
     & &__search-container {
       display: flex;
-      border: 1px solid black;
+      // border: 1px solid #00beac;
       width: 30%;
       &__input {
         width: 95%;
       }
       &__searchIcon {
         width: 5%;
-        border-left: 0px solid transparent;
+        // border-left: 0px solid #00beac;
         padding: 5px;
+        color: #00beac;
       }
+    }
+    input[type="text"] {
+      background-color: #ededed;
+      font-family: "Manrope", -apple-system, blinkmacsystemfont, "Segoe UI",
+        roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+      border: 0px solid;
+      border-radius: 4px;
+      padding-left: 1rem;
+    }
+    input:focus,
+    select:focus,
+    textarea:focus,
+    button:focus {
+      outline: none;
     }
   }
 }
