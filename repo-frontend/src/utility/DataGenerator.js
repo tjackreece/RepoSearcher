@@ -35,6 +35,8 @@ export const DataGenerator = (repoOBJ, colorArray) => {
 
     if (description) {
       repoDescription = description;
+    } else {
+      repoDescription = "No description provided";
     }
 
     let starCount = 0;
@@ -49,7 +51,6 @@ export const DataGenerator = (repoOBJ, colorArray) => {
     if (created_at) {
       dateCreated = created_at;
     }
-    // const formattedCommitData = [];
 
     const repoInfo = {
       repoName,
@@ -66,14 +67,8 @@ export const DataGenerator = (repoOBJ, colorArray) => {
     repoFormattedData.push(repoInfo);
   });
 
-  return repoFormattedData;
-};
-export const sortedRepos = (repos, direction) => {
-  return repos.sort(function (a, b) {
-    if (direction) {
-      return b.starCount - a.starCount;
-    }
-    return a.starCount - b.starCount;
+  return repoFormattedData.sort(function (a, b) {
+    return b.starCount - a.starCount;
   });
 };
 export const headerGenerator = (headers) => {

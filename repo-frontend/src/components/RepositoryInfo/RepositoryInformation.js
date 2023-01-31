@@ -1,25 +1,10 @@
 import React from "react";
 import CardMaker from "../Card";
-import { Skeleton, Stack } from "@mui/material";
+import LoadingState from "../LoadingState";
 
-const RepositoryInfomation = ({
-  repositories,
-  isLoading,
-  descendingOrder,
-  handleSort,
-}) => {
+const RepositoryInfomation = ({ repositories, isLoading }) => {
   if (isLoading) {
-    return (
-      <Stack display="flex">
-        <Skeleton
-          variant="rounded"
-          width="75vw"
-          height="33vh"
-          animation="wave"
-          sx={{ marginBottom: "1rem" }}
-        />
-      </Stack>
-    );
+    return <LoadingState />;
   }
   return (
     <div className="repository">

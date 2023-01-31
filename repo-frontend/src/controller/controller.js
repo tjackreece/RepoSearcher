@@ -12,7 +12,6 @@ export const getRepository = async (OrganizationName) => {
       return [];
     }
   } catch (error) {
-    console.log(error);
     return [];
   }
 };

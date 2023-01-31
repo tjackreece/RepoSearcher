@@ -3,31 +3,23 @@ import { DatastoreContext } from "./context/DatastoreProvider";
 import Navbar from "./components/Navigation/Navbar";
 import RepositoryInfomation from "./components/RepositoryInfo/RepositoryInformation";
 import { getRepository } from "./controller/controller";
-import { sortedRepos } from "./utility/DataGenerator";
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
+
 function App() {
   const { datastore, datastoreActions } = useContext(DatastoreContext);
   const [repos, setRepos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [descendingOrder, setDescendingOrder] = useState(true);
   const [noResultsFound, setNoResultsFound] = useState(false);
 
   useEffect(() => {
     if (!datastore.datastoreLoading) {
       if (datastore.repos.length > 0) {
-        setRepos(sortedRepos(datastore.repos, descendingOrder));
+        setRepos(datastore.repos);
         setIsLoading(false);
       }
     }
-  }, [datastore, descendingOrder]);
-
-  const handleSort = () => {
-    setIsLoading(true);
-    setDescendingOrder(!descendingOrder);
-    setIsLoading(false);
-    setIsLoading(false);
-  };
+  }, [datastore]);
 
   const handleSearch = (searchInput) => {
     const repoInfo = getRepository(searchInput);
@@ -42,8 +34,8 @@ function App() {
     });
   };
   const resetDatabase = () => {
-    setNoResultsFound(false);
     handleSearch("Netflix");
+    setNoResultsFound(false);
     setIsLoading(true);
   };
 
@@ -52,30 +44,21 @@ function App() {
       <Alert
         action={
           <Button onClick={resetDatabase} color="inherit" size="small">
-            UNDO
+            RELOAD
           </Button>
         }
         severity="error"
       >
-        This is an error alert — check it out!
+        Repository not found, please press the button to the right and try
+        another repository.
       </Alert>
     );
   };
   return (
     <>
-      {noResultsFound ? (
-        handleNoResults()
-      ) : (
-        <>
-          <Navbar search={handleSearch} isLoading={isLoading} />
-          <RepositoryInfomation
-            descendingOrder={descendingOrder}
-            handleSort={handleSort}
-            repositories={repos}
-            isLoading={isLoading}
-          />
-        </>
-      )}
+      <Navbar search={handleSearch} isLoading={isLoading} />
+      {noResultsFound && handleNoResults()}
+      <RepositoryInfomation repositories={repos} isLoading={isLoading} />
     </>
   );
 }
