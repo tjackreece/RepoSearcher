@@ -1,7 +1,6 @@
 import { createContext, useReducer, useEffect, useMemo } from "react";
 import { DatastoreReducer, initialState } from "./DatastoreReducer";
 import { getRepository } from "../controller/controller";
-import { data } from "./OfflineData";
 export const DatastoreContext = createContext(initialState);
 
 export default function DatastoreProvider({ children }) {
@@ -18,27 +17,16 @@ export default function DatastoreProvider({ children }) {
           type: "SET_ISLOADING",
           payload: { isLoading },
         }),
-      sortRepositories: (repositories, direction) =>
-        dispatch({
-          type: "SORT_REPOSITORY",
-          payload: { repositories, direction },
-        }),
     }),
     [dispatch]
   );
 
   useEffect(() => {
-    let offline = false;
-    if (offline) {
-      datastoreActions.setRepo(data);
+    const repoInfo = getRepository("Netflix");
+    Promise.all([repoInfo]).then((values) => {
+      datastoreActions.setRepo(values[0]);
       datastoreActions.setIsLoading(false);
-    } else {
-      const repoInfo = getRepository("Netflix");
-      Promise.all([repoInfo]).then((values) => {
-        datastoreActions.setRepo(values[0]);
-        datastoreActions.setIsLoading(false);
-      });
-    }
+    });
   }, [datastoreActions]);
 
   const reducerValue = useMemo(
