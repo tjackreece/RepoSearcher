@@ -2,7 +2,7 @@ $block-class: "commit-table";
 
 @at-root {
   .#{$block-class} {
-    min-width: 650;
     font-family: "Lato";
+    min-width: 650;
   }
 }

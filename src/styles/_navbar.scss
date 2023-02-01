@@ -37,12 +37,12 @@ $block-class: "navbar";
     }
     input[type="text"] {
       background-color: #ededed;
+      border: 0px solid;
+      border-radius: 4px;
       font-family: "Manrope", -apple-system, blinkmacsystemfont, "Segoe UI",
         roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif,
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
         "Noto Color Emoji";
-      border: 0px solid;
-      border-radius: 4px;
       padding-left: 1rem;
     }
     input:focus,
