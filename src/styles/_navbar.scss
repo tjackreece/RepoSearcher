@@ -4,7 +4,6 @@ $block-class: "navbar";
   .#{$block-class} {
     align-items: center;
     background-color: #fff;
-
     display: flex;
     font-size: 1.2rem;
     height: 65px;
@@ -25,14 +24,13 @@ $block-class: "navbar";
     }
     & &__search-container {
       display: flex;
-      // border: 1px solid #00beac;
       width: 30%;
       &__input {
         width: 95%;
+        margin-left: 3rem;
       }
       &__searchIcon {
         width: 5%;
-        // border-left: 0px solid #00beac;
         padding: 5px;
         color: #00beac;
       }

@@ -1,36 +1,45 @@
-# RepoSearcher
+# Repo Searcher
 
-## Introduction
+This tool allows you to navigate the repositories and commits in Netflix’s GitHub.
 
-A user interface to navigate the repositories and commits in Netflix’s Github. As a User, I would like to be able to see a list of Netflix’s repositories, and when I click on a repository, I want to be able to see the list of commits.
+- List of all repositories
+- Detailed view of commits within a repository
 
-## About Project
+## Built By
 
-Create a user interface to navigate the repositories and commits in Netflix’s Github. As a User, I would like to be able to see a list of Netflix’s repositories, and when I click on a repository, I want to be able to see the list of commits.
+Timothy Jackreece
 
-Basic Requirements
--Create a scrollable list of Netflix’s repositories: https://api.github.com/orgs/Netflix/repos
--Each item in the repository list should show: Repo name, Language, Description, Star Count, Fork Count, Date Created.
--This list should be sorted by Star Count in descending order
--When clicking on an item in the list, it should show another list of the recent commits
--Each item in this commits list should show: Commit Title, Committer username, Commit hash, Date Created
+## Using Netflix Repo Searcher
 
--Host the application on AWS, Heroku, Digital Ocean, or your own Web Host.
+### `npm start`
 
-\*Bonus Requirement
-As a user, I want to be able to type into an input an organization name other than Netflix and see a list of that organization’s repositories and commits instead.
-Any design additions, UI/UX improvements are always a plus.
+Runs the app in the development mode. You may need to run `npm i` to install dependencies.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## INSTRUCTIONS TO START PROJECT
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-### STEP 1: Travel to '/repo-frontend',
+### `npm test`
 
-Open new window in terminal. In the terminal, you need to navigate too the "repo-frontend" by putting the command `cd repo-frontend` from the home directory of project.
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### STEP 2: Download dependencies for project
+### `npm run build`
 
-Now that you are in "repo-frontend" folder in the terminal. Type in `npm install` or `npm i` into your terminal.
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-### STEP 3: Start up project
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-When Dependencies are installed, you are finally ready to start project. In the same terminal now type `npm start` to start the project yourself.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.

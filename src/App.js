@@ -1,45 +1,49 @@
-import { useContext, useEffect, useState } from "react";
-import { DatastoreContext } from "./context/DatastoreProvider";
-import Navbar from "./components/Navigation/Navbar";
-import RepositoryInfomation from "./components/RepositoryInfo/RepositoryInformation";
-import { getRepository } from "./controller/controller";
+import { useEffect, useState } from "react";
+import Navbar from "./components/Navigation";
+import RepositoryInfomation from "./components/RepositoryInfo";
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
+import axios from "axios";
 
 function App() {
-  const { datastore, datastoreActions } = useContext(DatastoreContext);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [repos, setRepos] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [noResultsFound, setNoResultsFound] = useState(false);
+
+  const getReposByOrganization = async (organizationName) => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get(
+        `https://api.github.com/orgs/${organizationName}/repos`
+      );
+      setIsLoading(false);
+      if (response.status === 200) {
+        setIsLoading(false);
+        setRepos(response.data);
+      } else {
+        setIsError(true);
+        return [];
+      }
+    } catch (error) {
+      setIsError(true);
+      setIsLoading(true);
+    }
+  };
 
   useEffect(() => {
-    if (!datastore.datastoreLoading) {
-      if (datastore.repos.length > 0) {
-        setRepos(datastore.repos);
-        setIsLoading(false);
-      }
-    }
-  }, [datastore]);
+    (async () => {
+      await getReposByOrganization("Netflix");
+    })();
+    return () => {};
+  }, []);
 
-  const handleSearch = (searchInput) => {
-    const repoInfo = getRepository(searchInput);
-    Promise.all([repoInfo]).then((values) => {
-      if (values[0].length > 0) {
-        datastoreActions.setRepo(values[0]);
-        setIsLoading(false);
-      } else {
-        setNoResultsFound(true);
-        setIsLoading(true);
-      }
-    });
-  };
-  const resetDatabase = () => {
-    handleSearch("Netflix");
-    setNoResultsFound(false);
-    setIsLoading(true);
+  const resetDatabase = async () => {
+    await getReposByOrganization("Netflix");
+    setIsError(false);
+    setIsLoading(false);
   };
 
-  const handleNoResults = () => {
+  const renderErrorState = () => {
     return (
       <Alert
         action={
@@ -54,11 +58,13 @@ function App() {
       </Alert>
     );
   };
+
+  const isIdle = isLoading || isError;
   return (
     <>
-      <Navbar search={handleSearch} isLoading={isLoading} />
-      {noResultsFound && handleNoResults()}
-      <RepositoryInfomation repositories={repos} isLoading={isLoading} />
+      <Navbar getReposByOrganization={getReposByOrganization} isIdle={isIdle} />
+      {isError && renderErrorState()}
+      <RepositoryInfomation repositories={repos} isIdle={isIdle} />
     </>
   );
 }
